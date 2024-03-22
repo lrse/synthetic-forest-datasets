@@ -1,0 +1,124 @@
+Grass Data:
+	Jitter Factor: 0.8
+	Density Pipeline: inputs the Grass Pipeline (See below)
+	Max Segments: 5
+	Max Bend Angle: 0.52
+	Blade Curvature: 1.12
+	Blade Height: 1.04
+	Height Variance: 0.17
+	Blade Width: 0.05
+	Width Variance: 0.05
+
+Grass Window Sampler Parallel:
+	Window: 4
+	Max Blades Per Tile: 256
+
+General:
+	Size: 256
+	Use General Seed: True
+
+Exporter:
+	Pipelines, Grass, Terrain: True
+	Terrain Points To Export: 260100
+
+Pipelines: Inputs the Tree, Undersotrey and Bushes pipeline.
+
+Terrain:
+	Scale: 149.73
+	Octaves: 4
+	Persistance: 0.199
+	Lacunarity: 2.6
+	Offset: 0, 0
+	Height Multiplier: 20
+
+
+--- Pipelines ---
+
+Forest Pipeline: has the following nodes:
+	Source: Fractal Noise
+		Scale: 150
+		Octaves: 4
+		Persistance: 0.25
+		Lacunarity: 0.25
+		Offset 0, 0
+	Variable Poisson Sampler: 
+		Min Radius: 2
+		Max Radius: 6
+		Sample Rejection: 30
+		Sample Limit: 10000
+		Size: 256
+		Density Texture: inputs the previous Fractal Noise
+	Placement:
+		Spawn Points OS: inputs the previous Variable Poisson Sampler
+		Use spawn texture: True
+		Spawn Texture: Inputs Source: Voronoi Noise with 3 centroids
+		Randomize Scale: True
+		Scale Factor Min Max: 1, 1.5
+		Randomize twist: True
+		Max Normal Alpha: 2
+		Randomize Spin: True
+		Prefabs: Pine presets 0-14, Fir presets 0-12
+
+
+Understorey Pipeline: has the following nodes:
+	Source: Fractal Noise
+		Scale: 150
+		Octaves: 4
+		Persistance: 0.25
+		Lacunarity: 0.25
+		Offset 0, 0
+	Variable Poisson Sampler: 
+		Min Radius: 5
+		Max Radius: 8
+		Sample Rejection: 30
+		Sample Limit: 10000
+		Size: 256
+		Density Texture: inputs the previous Fractal Noise
+	Placement:
+		Spawn Points OS: inputs the previous Variable Poisson Sampler
+		Use spawn texture: True
+		Spawn Texture: Inputs Source: Voronoi Noise with 3 centroids
+		Randomize Scale: True
+		Scale Factor Min Max: 1, 1.5
+		Randomize twist: True
+		Max Normal Alpha: 2
+		Randomize Spin: True
+		Prefabs: Liana presents 0-1, Plant presets 0-4, trunk6
+
+
+Bushes Pipeline: has the following nodes:
+	Source1: inputs Tree Pipeline Fractal Noise Source Node
+	One Minus1: inputs the previous source
+	Variable Poisson Sampler: 
+		Min Radius: 1.5
+		Max Radius: 6
+		Sample Rejection: 30
+		Sample Limit: 10000
+		Size: 256
+		Density Texture: inputs the previous One Minus1
+	Source2: inputs Tree Pipeline Voronoi Noise Source Node
+	One Minus2: inputs the previous source
+	Placement:
+		Spawn Points OS: inputs the previous Variable Poisson Sampler
+		Use spawn texture: True
+		Spawn Texture: inputs the previous One Minus2
+		Randomize Scale: True
+		Scale Factor Min Max: 0.5, 1.8
+		Randomize twist: True
+		Max Normal Alpha: 2
+		Randomize Spin: True
+		Prefabs: Bushes 0-19
+
+Grass Density Pipeline:
+	Source:  inputs Tree Pipeline Fractal Noise Source Node
+	One Minus: inputs the previous source
+	Saturation: inputs the previous One Minus
+		Min X val: 0.3
+		Max X val: 1
+	Linear: inputs the previous Saturation
+		Min Val: 0
+		Max Val: 0.6
+	End: inputs the previous Linear
+
+
+		

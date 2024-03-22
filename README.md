@@ -1,5 +1,5 @@
 # Synthetic Forest Datasets
-Synthetic Forest Datasets created by LRSE-Fortest-Simulator.
+Synthetic Forest Datasets created by LRSE Forest Simulator https://github.com/lrse/forest-simulator.
 
 We present two datasets: A LiDAR-like dataset, that consists of the point cloud of several scenes extracted from the LRSE Forest Simulator, and a camera-like dataset, that also consists of the point cloud of several scenes extracted from the same simulator, but processed to add occlusion from a top-down view, using Katz, S., et. al.: Direct visibility of point sets. 
 
@@ -28,7 +28,7 @@ where **x, y, z** represents the space coordinates of the point, and **category*
 The files are named taken the following convention: a_n_m.txt, where a stands for the number of the scene, n stands for is n-th division of the scene, and m stands for the m-th subcloud of the n-th partition. Each of the n partitions have a maximum of 2500000 points, whereas each subcloud has approximately 10000 points from that partition, segmented in the xy plane using K-means. 
 
 ## Forest Simulator Configuration
-In the annexed SilatorConfiguration file there are presented the parameters used in the simulator to generate both datasets. 
+In the annexed SimulatorConfiguration.txt file there are presented the parameters used in the simulator to generate both datasets. 
 
 ## Reference
 This dataset was publish in the paper:
